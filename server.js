@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const {validate} = require('deep-email-validator');
 const path = require('path');
+const cors = require('cors');
 const { MailtrapClient } = require('mailtrap');
 
 const app = express();
@@ -9,10 +10,14 @@ const PORT = process.env.PORT || 3000;
 const nodemailer = require('nodemailer') 
 
 
+app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 
+
+
 app.get('/', (req,res) => {
+    res.json({ message: 'CORS enabled!' });
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
